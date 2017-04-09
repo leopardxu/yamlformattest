@@ -34,19 +34,17 @@ func listDirandtestyaml(dirPath string, suffix string) {
 	}
 	for _, fileName := range files {
               var errnum int
-	errnum,err = yamlUnmasrshal(fileName)
+	      errnum,err = yamlUnmasrshal(fileName)
 		if errnum != 0 {
 			fmt.Printf("%s have %d error. \n", fileName,errnum)
 		} else {
 			fmt.Printf("%s is OK. \n", fileName)
 		}
-
 	}
 }
 
 func yamlUnmasrshal(fileName string)(errnum int,err error) {
 	m := make(map[interface{}]interface{})
-
 	contents, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		fmt.Println("error")
