@@ -5,4 +5,4 @@ if your svc&replication&configmap or secret ...  in a yaml file,you can use it t
 
 1.usage:
 ===
-go run yamltest.yaml -d XXXXXX
+go run yamltest.go -d XXXXXX
