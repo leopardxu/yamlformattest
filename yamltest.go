@@ -8,6 +8,7 @@ import (
         "os"
         "path/filepath"
         "strings"
+        "regexp"
 )
 
 var input_dir = flag.String("d", ".", "input the absolute path,the default is the current path")
@@ -66,7 +67,14 @@ func yamlUnmasrshal(fileName string) (errnum int, err error) {
         //      if strings.HasPrefix(string(contents), "---") {
         //              fmt.Printf("%s is not an ansible yaml.", fileName)
         //              err=fmt.Printf("%s is not an kube yaml.", fileName)
-        //      } else {
+        //      } else {//line := regexp.MustCompile(`[^ +]---`).FindAllString(string(contents), 1)
+	line := regexp.MustCompile(` +?---`).FindAllString(string(contents), -1)
+	//fmt.Println(len(line), line)
+	if len(line) > 0 {
+		fmt.Printf("%s have spaces before ---,total is %d.\n", fileName, len(line))
+		fmt.Println("=====================================")
+		os.Exit(2)
+	}
         n := strings.Split(string(contents), "---")
         for _, yamlcon := range n {
                 err = yaml.Unmarshal([]byte(yamlcon), &m)
